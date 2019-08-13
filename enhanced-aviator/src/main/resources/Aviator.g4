@@ -30,6 +30,11 @@ primary
     | literal
     | functionExpression
     | lambdaExpression
+    | pattern
+    ;
+
+pattern
+    : PATTERN_STR
     ;
 
 // lambda
@@ -82,6 +87,7 @@ CHAR_LITERAL:'\'' (~['\\\r\n] | EscapeSequence) '\'';
 STRING_LITERAL:'"' (~["\\\r\n] | EscapeSequence)* '"'
     | '\'' (~['\\\r\n] | EscapeSequence)* '\''
     ;
+PATTERN_STR: '/' (~[/\\\r\n]| '\\\\/' | EscapeSequence)*  '/' ;
 
 // 布尔字面量
 BOOL_LITERAL:'true'

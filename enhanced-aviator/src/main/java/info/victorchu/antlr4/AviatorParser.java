@@ -21,20 +21,20 @@ public class AviatorParser extends Parser {
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
 		T__24=25, T__25=26, T__26=27, IDENTIFIER=28, WS=29, CHAR_LITERAL=30, STRING_LITERAL=31, 
-		BOOL_LITERAL=32, NULL_LITERAL=33, DECIMAL_LITERAL=34, HEX_LITERAL=35, 
-		OCT_LITERAL=36, BINARY_LITERAL=37, FLOAT_LITERAL=38, HEX_FLOAT_LITERAL=39, 
-		EQUALS=40, ARROW=41, LEFTBRACKET=42, RIGHTBRACKET=43, COLON=44, PERIOD=45, 
-		SEMICOLON=46, COMMA=47;
+		PATTERN_STR=32, BOOL_LITERAL=33, NULL_LITERAL=34, DECIMAL_LITERAL=35, 
+		HEX_LITERAL=36, OCT_LITERAL=37, BINARY_LITERAL=38, FLOAT_LITERAL=39, HEX_FLOAT_LITERAL=40, 
+		EQUALS=41, ARROW=42, LEFTBRACKET=43, RIGHTBRACKET=44, COLON=45, PERIOD=46, 
+		SEMICOLON=47, COMMA=48;
 	public static final int
-		RULE_statement = 0, RULE_expression = 1, RULE_primary = 2, RULE_lambdaExpression = 3, 
-		RULE_lambdaDefineExpression = 4, RULE_lambdaExpressionBody = 5, RULE_functionExpression = 6, 
-		RULE_reference = 7, RULE_expressionList = 8, RULE_literal = 9, RULE_integerLiteral = 10, 
-		RULE_floatLiteral = 11;
+		RULE_statement = 0, RULE_expression = 1, RULE_primary = 2, RULE_pattern = 3, 
+		RULE_lambdaExpression = 4, RULE_lambdaDefineExpression = 5, RULE_lambdaExpressionBody = 6, 
+		RULE_functionExpression = 7, RULE_reference = 8, RULE_expressionList = 9, 
+		RULE_literal = 10, RULE_integerLiteral = 11, RULE_floatLiteral = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"statement", "expression", "primary", "lambdaExpression", "lambdaDefineExpression", 
-			"lambdaExpressionBody", "functionExpression", "reference", "expressionList", 
-			"literal", "integerLiteral", "floatLiteral"
+			"statement", "expression", "primary", "pattern", "lambdaExpression", 
+			"lambdaDefineExpression", "lambdaExpressionBody", "functionExpression", 
+			"reference", "expressionList", "literal", "integerLiteral", "floatLiteral"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -44,8 +44,8 @@ public class AviatorParser extends Parser {
 			null, "'['", "']'", "'~'", "'!'", "'-'", "'*'", "'/'", "'%'", "'+'", 
 			"'<<'", "'>>>'", "'>>'", "'<'", "'>'", "'<='", "'>='", "'=='", "'=~'", 
 			"'!='", "'&'", "'^'", "'|'", "'&&'", "'||'", "'?'", "'lambda'", "'end'", 
-			null, null, null, null, null, "'null'", null, null, null, null, null, 
-			null, "'='", "'->'", "'('", "')'", "':'", "'.'", "';'", "','"
+			null, null, null, null, null, null, "'null'", null, null, null, null, 
+			null, null, "'='", "'->'", "'('", "')'", "':'", "'.'", "';'", "','"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -54,9 +54,10 @@ public class AviatorParser extends Parser {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, "IDENTIFIER", "WS", "CHAR_LITERAL", "STRING_LITERAL", 
-			"BOOL_LITERAL", "NULL_LITERAL", "DECIMAL_LITERAL", "HEX_LITERAL", "OCT_LITERAL", 
-			"BINARY_LITERAL", "FLOAT_LITERAL", "HEX_FLOAT_LITERAL", "EQUALS", "ARROW", 
-			"LEFTBRACKET", "RIGHTBRACKET", "COLON", "PERIOD", "SEMICOLON", "COMMA"
+			"PATTERN_STR", "BOOL_LITERAL", "NULL_LITERAL", "DECIMAL_LITERAL", "HEX_LITERAL", 
+			"OCT_LITERAL", "BINARY_LITERAL", "FLOAT_LITERAL", "HEX_FLOAT_LITERAL", 
+			"EQUALS", "ARROW", "LEFTBRACKET", "RIGHTBRACKET", "COLON", "PERIOD", 
+			"SEMICOLON", "COMMA"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -147,21 +148,21 @@ public class AviatorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(24);
+			setState(26);
 			expression(0);
-			setState(29);
+			setState(31);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==SEMICOLON) {
 				{
 				{
-				setState(25);
+				setState(27);
 				match(SEMICOLON);
-				setState(26);
+				setState(28);
 				expression(0);
 				}
 				}
-				setState(31);
+				setState(33);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -561,7 +562,7 @@ public class AviatorParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(40);
+			setState(42);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
@@ -570,7 +571,7 @@ public class AviatorParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(33);
+				setState(35);
 				primary();
 				}
 				break;
@@ -579,7 +580,7 @@ public class AviatorParser extends Parser {
 				_localctx = new UnaryContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(34);
+				setState(36);
 				((UnaryContext)_localctx).prefix = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__3) | (1L << T__4))) != 0)) ) {
@@ -590,7 +591,7 @@ public class AviatorParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(35);
+				setState(37);
 				expression(14);
 				}
 				break;
@@ -599,7 +600,7 @@ public class AviatorParser extends Parser {
 				_localctx = new LambdaContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(36);
+				setState(38);
 				lambdaDefineExpression();
 				}
 				break;
@@ -608,17 +609,17 @@ public class AviatorParser extends Parser {
 				_localctx = new AssignContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(37);
-				match(IDENTIFIER);
-				setState(38);
-				match(EQUALS);
 				setState(39);
+				match(IDENTIFIER);
+				setState(40);
+				match(EQUALS);
+				setState(41);
 				expression(1);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(85);
+			setState(87);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -626,16 +627,16 @@ public class AviatorParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(83);
+					setState(85);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 					case 1:
 						{
 						_localctx = new TermContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(42);
+						setState(44);
 						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
-						setState(43);
+						setState(45);
 						((TermContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__6) | (1L << T__7))) != 0)) ) {
@@ -646,7 +647,7 @@ public class AviatorParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(44);
+						setState(46);
 						expression(14);
 						}
 						break;
@@ -654,9 +655,9 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new ExprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(45);
+						setState(47);
 						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
-						setState(46);
+						setState(48);
 						((ExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__4 || _la==T__8) ) {
@@ -667,7 +668,7 @@ public class AviatorParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(47);
+						setState(49);
 						expression(13);
 						}
 						break;
@@ -675,9 +676,9 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new ShiftContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(48);
+						setState(50);
 						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
-						setState(49);
+						setState(51);
 						((ShiftContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11))) != 0)) ) {
@@ -688,7 +689,7 @@ public class AviatorParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(50);
+						setState(52);
 						expression(12);
 						}
 						break;
@@ -696,9 +697,9 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new RelContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(51);
+						setState(53);
 						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(52);
+						setState(54);
 						((RelContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__12) | (1L << T__13) | (1L << T__14) | (1L << T__15))) != 0)) ) {
@@ -709,7 +710,7 @@ public class AviatorParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(53);
+						setState(55);
 						expression(11);
 						}
 						break;
@@ -717,9 +718,9 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new EqualityContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(54);
+						setState(56);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(55);
+						setState(57);
 						((EqualityContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__16) | (1L << T__17) | (1L << T__18))) != 0)) ) {
@@ -730,7 +731,7 @@ public class AviatorParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(56);
+						setState(58);
 						expression(10);
 						}
 						break;
@@ -738,11 +739,11 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new BitAndContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(57);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
-						setState(58);
-						((BitAndContext)_localctx).op = match(T__19);
 						setState(59);
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						setState(60);
+						((BitAndContext)_localctx).op = match(T__19);
+						setState(61);
 						expression(9);
 						}
 						break;
@@ -750,11 +751,11 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new XorContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(60);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(61);
-						((XorContext)_localctx).op = match(T__20);
 						setState(62);
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						setState(63);
+						((XorContext)_localctx).op = match(T__20);
+						setState(64);
 						expression(8);
 						}
 						break;
@@ -762,11 +763,11 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new BitOrContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(63);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(64);
-						((BitOrContext)_localctx).op = match(T__21);
 						setState(65);
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						setState(66);
+						((BitOrContext)_localctx).op = match(T__21);
+						setState(67);
 						expression(7);
 						}
 						break;
@@ -774,11 +775,11 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new AndContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(66);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(67);
-						((AndContext)_localctx).op = match(T__22);
 						setState(68);
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						setState(69);
+						((AndContext)_localctx).op = match(T__22);
+						setState(70);
 						expression(6);
 						}
 						break;
@@ -786,11 +787,11 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new JoinContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(69);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(70);
-						((JoinContext)_localctx).op = match(T__23);
 						setState(71);
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						setState(72);
+						((JoinContext)_localctx).op = match(T__23);
+						setState(73);
 						expression(5);
 						}
 						break;
@@ -798,15 +799,15 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new TernaryContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(72);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(73);
-						((TernaryContext)_localctx).op = match(T__24);
 						setState(74);
-						expression(0);
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(75);
-						match(COLON);
+						((TernaryContext)_localctx).op = match(T__24);
 						setState(76);
+						expression(0);
+						setState(77);
+						match(COLON);
+						setState(78);
 						expression(4);
 						}
 						break;
@@ -814,20 +815,20 @@ public class AviatorParser extends Parser {
 						{
 						_localctx = new ArrayAccessContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(78);
-						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
-						setState(79);
-						match(T__0);
 						setState(80);
-						expression(0);
+						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
 						setState(81);
+						match(T__0);
+						setState(82);
+						expression(0);
+						setState(83);
 						match(T__1);
 						}
 						break;
 					}
 					} 
 				}
-				setState(87);
+				setState(89);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
@@ -862,6 +863,9 @@ public class AviatorParser extends Parser {
 		public LambdaExpressionContext lambdaExpression() {
 			return getRuleContext(LambdaExpressionContext.class,0);
 		}
+		public PatternContext pattern() {
+			return getRuleContext(PatternContext.class,0);
+		}
 		public PrimaryContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -885,48 +889,97 @@ public class AviatorParser extends Parser {
 		PrimaryContext _localctx = new PrimaryContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_primary);
 		try {
-			setState(96);
+			setState(99);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(88);
-				match(LEFTBRACKET);
-				setState(89);
-				expression(0);
 				setState(90);
+				match(LEFTBRACKET);
+				setState(91);
+				expression(0);
+				setState(92);
 				match(RIGHTBRACKET);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(92);
+				setState(94);
 				reference();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(93);
+				setState(95);
 				literal();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(94);
+				setState(96);
 				functionExpression();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(95);
+				setState(97);
 				lambdaExpression();
 				}
 				break;
+			case 6:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(98);
+				pattern();
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class PatternContext extends ParserRuleContext {
+		public TerminalNode PATTERN_STR() { return getToken(AviatorParser.PATTERN_STR, 0); }
+		public PatternContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_pattern; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AviatorListener ) ((AviatorListener)listener).enterPattern(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AviatorListener ) ((AviatorListener)listener).exitPattern(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AviatorVisitor ) return ((AviatorVisitor<? extends T>)visitor).visitPattern(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final PatternContext pattern() throws RecognitionException {
+		PatternContext _localctx = new PatternContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_pattern);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(101);
+			match(PATTERN_STR);
 			}
 		}
 		catch (RecognitionException re) {
@@ -976,21 +1029,21 @@ public class AviatorParser extends Parser {
 
 	public final LambdaExpressionContext lambdaExpression() throws RecognitionException {
 		LambdaExpressionContext _localctx = new LambdaExpressionContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_lambdaExpression);
+		enterRule(_localctx, 8, RULE_lambdaExpression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(98);
-			match(LEFTBRACKET);
-			setState(99);
-			lambdaDefineExpression();
-			setState(100);
-			match(RIGHTBRACKET);
-			setState(101);
-			match(LEFTBRACKET);
-			setState(102);
-			expressionList();
 			setState(103);
+			match(LEFTBRACKET);
+			setState(104);
+			lambdaDefineExpression();
+			setState(105);
+			match(RIGHTBRACKET);
+			setState(106);
+			match(LEFTBRACKET);
+			setState(107);
+			expressionList();
+			setState(108);
 			match(RIGHTBRACKET);
 			}
 		}
@@ -1036,23 +1089,23 @@ public class AviatorParser extends Parser {
 
 	public final LambdaDefineExpressionContext lambdaDefineExpression() throws RecognitionException {
 		LambdaDefineExpressionContext _localctx = new LambdaDefineExpressionContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_lambdaDefineExpression);
+		enterRule(_localctx, 10, RULE_lambdaDefineExpression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(105);
-			match(T__25);
-			setState(106);
-			match(LEFTBRACKET);
-			setState(107);
-			expressionList();
-			setState(108);
-			match(RIGHTBRACKET);
-			setState(109);
-			match(ARROW);
 			setState(110);
-			lambdaExpressionBody();
+			match(T__25);
 			setState(111);
+			match(LEFTBRACKET);
+			setState(112);
+			expressionList();
+			setState(113);
+			match(RIGHTBRACKET);
+			setState(114);
+			match(ARROW);
+			setState(115);
+			lambdaExpressionBody();
+			setState(116);
 			match(T__26);
 			}
 		}
@@ -1092,11 +1145,11 @@ public class AviatorParser extends Parser {
 
 	public final LambdaExpressionBodyContext lambdaExpressionBody() throws RecognitionException {
 		LambdaExpressionBodyContext _localctx = new LambdaExpressionBodyContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_lambdaExpressionBody);
+		enterRule(_localctx, 12, RULE_lambdaExpressionBody);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(113);
+			setState(118);
 			statement();
 			}
 		}
@@ -1141,26 +1194,26 @@ public class AviatorParser extends Parser {
 
 	public final FunctionExpressionContext functionExpression() throws RecognitionException {
 		FunctionExpressionContext _localctx = new FunctionExpressionContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_functionExpression);
+		enterRule(_localctx, 14, RULE_functionExpression);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(115);
+			setState(120);
 			reference();
-			setState(116);
+			setState(121);
 			match(LEFTBRACKET);
-			setState(118);
+			setState(123);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__25) | (1L << IDENTIFIER) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << BOOL_LITERAL) | (1L << NULL_LITERAL) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << LEFTBRACKET))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__25) | (1L << IDENTIFIER) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << PATTERN_STR) | (1L << BOOL_LITERAL) | (1L << NULL_LITERAL) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << LEFTBRACKET))) != 0)) {
 				{
-				setState(117);
+				setState(122);
 				expressionList();
 				}
 			}
 
-			setState(120);
+			setState(125);
 			match(RIGHTBRACKET);
 			}
 		}
@@ -1202,23 +1255,23 @@ public class AviatorParser extends Parser {
 
 	public final ReferenceContext reference() throws RecognitionException {
 		ReferenceContext _localctx = new ReferenceContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_reference);
+		enterRule(_localctx, 16, RULE_reference);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(124);
+			setState(129);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				{
-				setState(122);
+				setState(127);
 				match(IDENTIFIER);
-				setState(123);
+				setState(128);
 				match(PERIOD);
 				}
 				break;
 			}
-			setState(126);
+			setState(131);
 			match(IDENTIFIER);
 			}
 		}
@@ -1265,26 +1318,26 @@ public class AviatorParser extends Parser {
 
 	public final ExpressionListContext expressionList() throws RecognitionException {
 		ExpressionListContext _localctx = new ExpressionListContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_expressionList);
+		enterRule(_localctx, 18, RULE_expressionList);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(128);
-			expression(0);
 			setState(133);
+			expression(0);
+			setState(138);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(129);
+				setState(134);
 				match(COMMA);
-				setState(130);
+				setState(135);
 				expression(0);
 				}
 				}
-				setState(135);
+				setState(140);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1333,9 +1386,9 @@ public class AviatorParser extends Parser {
 
 	public final LiteralContext literal() throws RecognitionException {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_literal);
+		enterRule(_localctx, 20, RULE_literal);
 		try {
-			setState(142);
+			setState(147);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case DECIMAL_LITERAL:
@@ -1344,7 +1397,7 @@ public class AviatorParser extends Parser {
 			case BINARY_LITERAL:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(136);
+				setState(141);
 				integerLiteral();
 				}
 				break;
@@ -1352,35 +1405,35 @@ public class AviatorParser extends Parser {
 			case HEX_FLOAT_LITERAL:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(137);
+				setState(142);
 				floatLiteral();
 				}
 				break;
 			case CHAR_LITERAL:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(138);
+				setState(143);
 				match(CHAR_LITERAL);
 				}
 				break;
 			case STRING_LITERAL:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(139);
+				setState(144);
 				match(STRING_LITERAL);
 				}
 				break;
 			case BOOL_LITERAL:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(140);
+				setState(145);
 				match(BOOL_LITERAL);
 				}
 				break;
 			case NULL_LITERAL:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(141);
+				setState(146);
 				match(NULL_LITERAL);
 				}
 				break;
@@ -1425,12 +1478,12 @@ public class AviatorParser extends Parser {
 
 	public final IntegerLiteralContext integerLiteral() throws RecognitionException {
 		IntegerLiteralContext _localctx = new IntegerLiteralContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_integerLiteral);
+		enterRule(_localctx, 22, RULE_integerLiteral);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(144);
+			setState(149);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1477,12 +1530,12 @@ public class AviatorParser extends Parser {
 
 	public final FloatLiteralContext floatLiteral() throws RecognitionException {
 		FloatLiteralContext _localctx = new FloatLiteralContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_floatLiteral);
+		enterRule(_localctx, 24, RULE_floatLiteral);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(146);
+			setState(151);
 			_la = _input.LA(1);
 			if ( !(_la==FLOAT_LITERAL || _la==HEX_FLOAT_LITERAL) ) {
 			_errHandler.recoverInline(this);
@@ -1543,48 +1596,50 @@ public class AviatorParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\61\u0097\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\62\u009c\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\4\f\t\f\4\r\t\r\3\2\3\2\3\2\7\2\36\n\2\f\2\16\2!\13\2\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\5\3+\n\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\3\2\7\2 \n\2\f\2\16\2#\13\2\3"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3-\n\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3V\n\3\f\3"+
-		"\16\3Y\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4c\n\4\3\5\3\5\3\5\3\5\3"+
-		"\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\b\3\b\3\b\5\by\n"+
-		"\b\3\b\3\b\3\t\3\t\5\t\177\n\t\3\t\3\t\3\n\3\n\3\n\7\n\u0086\n\n\f\n\16"+
-		"\n\u0089\13\n\3\13\3\13\3\13\3\13\3\13\3\13\5\13\u0091\n\13\3\f\3\f\3"+
-		"\r\3\r\3\r\2\3\4\16\2\4\6\b\n\f\16\20\22\24\26\30\2\n\3\2\5\7\3\2\b\n"+
-		"\4\2\7\7\13\13\3\2\f\16\3\2\17\22\3\2\23\25\3\2$\'\3\2()\2\u00a6\2\32"+
-		"\3\2\2\2\4*\3\2\2\2\6b\3\2\2\2\bd\3\2\2\2\nk\3\2\2\2\fs\3\2\2\2\16u\3"+
-		"\2\2\2\20~\3\2\2\2\22\u0082\3\2\2\2\24\u0090\3\2\2\2\26\u0092\3\2\2\2"+
-		"\30\u0094\3\2\2\2\32\37\5\4\3\2\33\34\7\60\2\2\34\36\5\4\3\2\35\33\3\2"+
-		"\2\2\36!\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 \3\3\2\2\2!\37\3\2\2\2\"#\b"+
-		"\3\1\2#+\5\6\4\2$%\t\2\2\2%+\5\4\3\20&+\5\n\6\2\'(\7\36\2\2()\7*\2\2)"+
-		"+\5\4\3\3*\"\3\2\2\2*$\3\2\2\2*&\3\2\2\2*\'\3\2\2\2+W\3\2\2\2,-\f\17\2"+
-		"\2-.\t\3\2\2.V\5\4\3\20/\60\f\16\2\2\60\61\t\4\2\2\61V\5\4\3\17\62\63"+
-		"\f\r\2\2\63\64\t\5\2\2\64V\5\4\3\16\65\66\f\f\2\2\66\67\t\6\2\2\67V\5"+
-		"\4\3\r89\f\13\2\29:\t\7\2\2:V\5\4\3\f;<\f\n\2\2<=\7\26\2\2=V\5\4\3\13"+
-		">?\f\t\2\2?@\7\27\2\2@V\5\4\3\nAB\f\b\2\2BC\7\30\2\2CV\5\4\3\tDE\f\7\2"+
-		"\2EF\7\31\2\2FV\5\4\3\bGH\f\6\2\2HI\7\32\2\2IV\5\4\3\7JK\f\5\2\2KL\7\33"+
-		"\2\2LM\5\4\3\2MN\7.\2\2NO\5\4\3\6OV\3\2\2\2PQ\f\21\2\2QR\7\3\2\2RS\5\4"+
-		"\3\2ST\7\4\2\2TV\3\2\2\2U,\3\2\2\2U/\3\2\2\2U\62\3\2\2\2U\65\3\2\2\2U"+
-		"8\3\2\2\2U;\3\2\2\2U>\3\2\2\2UA\3\2\2\2UD\3\2\2\2UG\3\2\2\2UJ\3\2\2\2"+
-		"UP\3\2\2\2VY\3\2\2\2WU\3\2\2\2WX\3\2\2\2X\5\3\2\2\2YW\3\2\2\2Z[\7,\2\2"+
-		"[\\\5\4\3\2\\]\7-\2\2]c\3\2\2\2^c\5\20\t\2_c\5\24\13\2`c\5\16\b\2ac\5"+
-		"\b\5\2bZ\3\2\2\2b^\3\2\2\2b_\3\2\2\2b`\3\2\2\2ba\3\2\2\2c\7\3\2\2\2de"+
-		"\7,\2\2ef\5\n\6\2fg\7-\2\2gh\7,\2\2hi\5\22\n\2ij\7-\2\2j\t\3\2\2\2kl\7"+
-		"\34\2\2lm\7,\2\2mn\5\22\n\2no\7-\2\2op\7+\2\2pq\5\f\7\2qr\7\35\2\2r\13"+
-		"\3\2\2\2st\5\2\2\2t\r\3\2\2\2uv\5\20\t\2vx\7,\2\2wy\5\22\n\2xw\3\2\2\2"+
-		"xy\3\2\2\2yz\3\2\2\2z{\7-\2\2{\17\3\2\2\2|}\7\36\2\2}\177\7/\2\2~|\3\2"+
-		"\2\2~\177\3\2\2\2\177\u0080\3\2\2\2\u0080\u0081\7\36\2\2\u0081\21\3\2"+
-		"\2\2\u0082\u0087\5\4\3\2\u0083\u0084\7\61\2\2\u0084\u0086\5\4\3\2\u0085"+
-		"\u0083\3\2\2\2\u0086\u0089\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0088\3\2"+
-		"\2\2\u0088\23\3\2\2\2\u0089\u0087\3\2\2\2\u008a\u0091\5\26\f\2\u008b\u0091"+
-		"\5\30\r\2\u008c\u0091\7 \2\2\u008d\u0091\7!\2\2\u008e\u0091\7\"\2\2\u008f"+
-		"\u0091\7#\2\2\u0090\u008a\3\2\2\2\u0090\u008b\3\2\2\2\u0090\u008c\3\2"+
-		"\2\2\u0090\u008d\3\2\2\2\u0090\u008e\3\2\2\2\u0090\u008f\3\2\2\2\u0091"+
-		"\25\3\2\2\2\u0092\u0093\t\b\2\2\u0093\27\3\2\2\2\u0094\u0095\t\t\2\2\u0095"+
-		"\31\3\2\2\2\13\37*UWbx~\u0087\u0090";
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3X"+
+		"\n\3\f\3\16\3[\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4f\n\4\3\5\3"+
+		"\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b"+
+		"\3\t\3\t\3\t\5\t~\n\t\3\t\3\t\3\n\3\n\5\n\u0084\n\n\3\n\3\n\3\13\3\13"+
+		"\3\13\7\13\u008b\n\13\f\13\16\13\u008e\13\13\3\f\3\f\3\f\3\f\3\f\3\f\5"+
+		"\f\u0096\n\f\3\r\3\r\3\16\3\16\3\16\2\3\4\17\2\4\6\b\n\f\16\20\22\24\26"+
+		"\30\32\2\n\3\2\5\7\3\2\b\n\4\2\7\7\13\13\3\2\f\16\3\2\17\22\3\2\23\25"+
+		"\3\2%(\3\2)*\2\u00ab\2\34\3\2\2\2\4,\3\2\2\2\6e\3\2\2\2\bg\3\2\2\2\ni"+
+		"\3\2\2\2\fp\3\2\2\2\16x\3\2\2\2\20z\3\2\2\2\22\u0083\3\2\2\2\24\u0087"+
+		"\3\2\2\2\26\u0095\3\2\2\2\30\u0097\3\2\2\2\32\u0099\3\2\2\2\34!\5\4\3"+
+		"\2\35\36\7\61\2\2\36 \5\4\3\2\37\35\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3"+
+		"\2\2\2\"\3\3\2\2\2#!\3\2\2\2$%\b\3\1\2%-\5\6\4\2&\'\t\2\2\2\'-\5\4\3\20"+
+		"(-\5\f\7\2)*\7\36\2\2*+\7+\2\2+-\5\4\3\3,$\3\2\2\2,&\3\2\2\2,(\3\2\2\2"+
+		",)\3\2\2\2-Y\3\2\2\2./\f\17\2\2/\60\t\3\2\2\60X\5\4\3\20\61\62\f\16\2"+
+		"\2\62\63\t\4\2\2\63X\5\4\3\17\64\65\f\r\2\2\65\66\t\5\2\2\66X\5\4\3\16"+
+		"\678\f\f\2\289\t\6\2\29X\5\4\3\r:;\f\13\2\2;<\t\7\2\2<X\5\4\3\f=>\f\n"+
+		"\2\2>?\7\26\2\2?X\5\4\3\13@A\f\t\2\2AB\7\27\2\2BX\5\4\3\nCD\f\b\2\2DE"+
+		"\7\30\2\2EX\5\4\3\tFG\f\7\2\2GH\7\31\2\2HX\5\4\3\bIJ\f\6\2\2JK\7\32\2"+
+		"\2KX\5\4\3\7LM\f\5\2\2MN\7\33\2\2NO\5\4\3\2OP\7/\2\2PQ\5\4\3\6QX\3\2\2"+
+		"\2RS\f\21\2\2ST\7\3\2\2TU\5\4\3\2UV\7\4\2\2VX\3\2\2\2W.\3\2\2\2W\61\3"+
+		"\2\2\2W\64\3\2\2\2W\67\3\2\2\2W:\3\2\2\2W=\3\2\2\2W@\3\2\2\2WC\3\2\2\2"+
+		"WF\3\2\2\2WI\3\2\2\2WL\3\2\2\2WR\3\2\2\2X[\3\2\2\2YW\3\2\2\2YZ\3\2\2\2"+
+		"Z\5\3\2\2\2[Y\3\2\2\2\\]\7-\2\2]^\5\4\3\2^_\7.\2\2_f\3\2\2\2`f\5\22\n"+
+		"\2af\5\26\f\2bf\5\20\t\2cf\5\n\6\2df\5\b\5\2e\\\3\2\2\2e`\3\2\2\2ea\3"+
+		"\2\2\2eb\3\2\2\2ec\3\2\2\2ed\3\2\2\2f\7\3\2\2\2gh\7\"\2\2h\t\3\2\2\2i"+
+		"j\7-\2\2jk\5\f\7\2kl\7.\2\2lm\7-\2\2mn\5\24\13\2no\7.\2\2o\13\3\2\2\2"+
+		"pq\7\34\2\2qr\7-\2\2rs\5\24\13\2st\7.\2\2tu\7,\2\2uv\5\16\b\2vw\7\35\2"+
+		"\2w\r\3\2\2\2xy\5\2\2\2y\17\3\2\2\2z{\5\22\n\2{}\7-\2\2|~\5\24\13\2}|"+
+		"\3\2\2\2}~\3\2\2\2~\177\3\2\2\2\177\u0080\7.\2\2\u0080\21\3\2\2\2\u0081"+
+		"\u0082\7\36\2\2\u0082\u0084\7\60\2\2\u0083\u0081\3\2\2\2\u0083\u0084\3"+
+		"\2\2\2\u0084\u0085\3\2\2\2\u0085\u0086\7\36\2\2\u0086\23\3\2\2\2\u0087"+
+		"\u008c\5\4\3\2\u0088\u0089\7\62\2\2\u0089\u008b\5\4\3\2\u008a\u0088\3"+
+		"\2\2\2\u008b\u008e\3\2\2\2\u008c\u008a\3\2\2\2\u008c\u008d\3\2\2\2\u008d"+
+		"\25\3\2\2\2\u008e\u008c\3\2\2\2\u008f\u0096\5\30\r\2\u0090\u0096\5\32"+
+		"\16\2\u0091\u0096\7 \2\2\u0092\u0096\7!\2\2\u0093\u0096\7#\2\2\u0094\u0096"+
+		"\7$\2\2\u0095\u008f\3\2\2\2\u0095\u0090\3\2\2\2\u0095\u0091\3\2\2\2\u0095"+
+		"\u0092\3\2\2\2\u0095\u0093\3\2\2\2\u0095\u0094\3\2\2\2\u0096\27\3\2\2"+
+		"\2\u0097\u0098\t\b\2\2\u0098\31\3\2\2\2\u0099\u009a\t\t\2\2\u009a\33\3"+
+		"\2\2\2\13!,WYe}\u0083\u008c\u0095";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

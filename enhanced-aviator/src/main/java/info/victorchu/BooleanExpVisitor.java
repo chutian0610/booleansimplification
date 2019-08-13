@@ -20,6 +20,14 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class BooleanExpVisitor extends AviatorBaseVisitor {
 
     @Override
+    public Object visitPattern(AviatorParser.PatternContext ctx) {
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        return aviatorAtomBooleanExpression;
+    }
+
+    @Override
     public Rule visitStatement(AviatorParser.StatementContext ctx) {
         Rule rule = new Rule();
         rule.setOriginExp(ctx.getText());
@@ -177,46 +185,78 @@ public class BooleanExpVisitor extends AviatorBaseVisitor {
 
     @Override
     public Object visitLambdaExpression(AviatorParser.LambdaExpressionContext ctx) {
-        return super.visitLambdaExpression(ctx);
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        // lambda不需要继续深入
+        return aviatorAtomBooleanExpression;
     }
 
     @Override
     public Object visitLambdaDefineExpression(AviatorParser.LambdaDefineExpressionContext ctx) {
-        return super.visitLambdaDefineExpression(ctx);
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        // lambda不需要继续深入
+        return aviatorAtomBooleanExpression;
     }
 
     @Override
     public Object visitLambdaExpressionBody(AviatorParser.LambdaExpressionBodyContext ctx) {
-        return super.visitLambdaExpressionBody(ctx);
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        // lambda不需要继续深入
+        return aviatorAtomBooleanExpression;
     }
 
     @Override
     public Object visitFunctionExpression(AviatorParser.FunctionExpressionContext ctx) {
-        return super.visitFunctionExpression(ctx);
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        // function不需要继续深入
+        return aviatorAtomBooleanExpression;
     }
 
     @Override
     public Object visitReference(AviatorParser.ReferenceContext ctx) {
-        return super.visitReference(ctx);
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        // 引用不需要继续深入
+        return aviatorAtomBooleanExpression;
     }
 
     @Override
     public Object visitExpressionList(AviatorParser.ExpressionListContext ctx) {
-        return super.visitExpressionList(ctx);
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        return aviatorAtomBooleanExpression;
     }
 
     @Override
     public Object visitLiteral(AviatorParser.LiteralContext ctx) {
-        return super.visitLiteral(ctx);
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        return aviatorAtomBooleanExpression;
     }
 
     @Override
     public Object visitIntegerLiteral(AviatorParser.IntegerLiteralContext ctx) {
-        return super.visitIntegerLiteral(ctx);
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        return aviatorAtomBooleanExpression;
     }
 
     @Override
     public Object visitFloatLiteral(AviatorParser.FloatLiteralContext ctx) {
-        return super.visitFloatLiteral(ctx);
+        String exp = ctx.getText();
+        AviatorAtomBooleanExpression aviatorAtomBooleanExpression = new AviatorAtomBooleanExpression();
+        aviatorAtomBooleanExpression.setExpression(exp);
+        return aviatorAtomBooleanExpression;
     }
 }

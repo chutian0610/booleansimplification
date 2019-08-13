@@ -135,6 +135,12 @@ public interface AviatorVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrimary(AviatorParser.PrimaryContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AviatorParser#pattern}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPattern(AviatorParser.PatternContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AviatorParser#lambdaExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

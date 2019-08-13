@@ -232,6 +232,18 @@ public class AviatorBaseListener implements AviatorListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPattern(AviatorParser.PatternContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPattern(AviatorParser.PatternContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLambdaExpression(AviatorParser.LambdaExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}

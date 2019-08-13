@@ -220,6 +220,16 @@ public interface AviatorListener extends ParseTreeListener {
 	 */
 	void exitPrimary(AviatorParser.PrimaryContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AviatorParser#pattern}.
+	 * @param ctx the parse tree
+	 */
+	void enterPattern(AviatorParser.PatternContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AviatorParser#pattern}.
+	 * @param ctx the parse tree
+	 */
+	void exitPattern(AviatorParser.PatternContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AviatorParser#lambdaExpression}.
 	 * @param ctx the parse tree
 	 */

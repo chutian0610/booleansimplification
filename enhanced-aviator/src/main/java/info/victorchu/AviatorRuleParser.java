@@ -18,10 +18,16 @@ public class AviatorRuleParser {
 
     public void parseExp(String exp){
         // parse aviator rule
+//        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//        System.out.println(exp);
+//        System.out.println("===============================================================");
         AviatorLexer lexer = new AviatorLexer(CharStreams.fromString(exp));
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         AviatorParser parser = new AviatorParser(commonTokenStream);
         ParseTree parseTree = parser.statement();
+
+//        System.out.println(parseTree.toStringTree(parser));
+
         BooleanExpVisitor booleanExpVisitor = new BooleanExpVisitor();
         parseTree.accept(booleanExpVisitor);
     }
