@@ -26,11 +26,6 @@ public class OrOpBooleanExpression extends OperatorBooleanExpression {
     }
 
     @Override
-    public boolean evaluate() {
-        return left.evaluate() || right.evaluate();
-    }
-
-    @Override
     public boolean equal(AbstractBooleanExpression abstractBooleanExpression) {
         if (abstractBooleanExpression instanceof OrOpBooleanExpression) {
             if (left.equal(((OrOpBooleanExpression) abstractBooleanExpression).left)

@@ -15,29 +15,22 @@ public class AviatorAtomBooleanExpression extends AtomBooleanExpression {
         this.expression = expression;
     }
 
-    public Map<String, Object> getEnv() {
-        return env;
-    }
-
-    public void setEnv(Map<String, Object> env) {
-        this.env = env;
-    }
-
     private String expression;
-    private Map<String,Object> env;
-
-    @Override
-    public boolean evaluate() {
-        return false;
-    }
 
     @Override
     public boolean equal(AbstractBooleanExpression abstractBooleanExpression) {
-        return false;
+        if(abstractBooleanExpression == null){
+            return false;
+        }
+        if(abstractBooleanExpression instanceof AviatorAtomBooleanExpression){
+            return ((AviatorAtomBooleanExpression) abstractBooleanExpression).getExpression().equals(this.expression);
+        }else {
+            return false;
+        }
     }
 
     @Override
     public String print() {
-        return null;
+        return expression;
     }
 }

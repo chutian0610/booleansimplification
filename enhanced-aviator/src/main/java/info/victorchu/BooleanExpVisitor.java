@@ -6,7 +6,6 @@ import info.victorchu.boolexp.AbstractBooleanExpression;
 import info.victorchu.boolexp.AndOpBooleanExpression;
 import info.victorchu.boolexp.NotOpBooleanExpression;
 import info.victorchu.boolexp.OrOpBooleanExpression;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
  * aviator的语法产生式粗略分为表达式和值两类对应于 grammar文件的 expression和primary
@@ -31,7 +30,7 @@ public class BooleanExpVisitor extends AviatorBaseVisitor {
     public Rule visitStatement(AviatorParser.StatementContext ctx) {
         Rule rule = new Rule();
         rule.setOriginExp(ctx.getText());
-        rule.setAbstractBooleanExpression((AbstractBooleanExpression) super.visitStatement(ctx));
+        rule.setBooleanExpression((AbstractBooleanExpression) super.visitStatement(ctx));
         return rule;
     }
 
@@ -86,7 +85,7 @@ public class BooleanExpVisitor extends AviatorBaseVisitor {
     @Override
     public Object visitAnd(AviatorParser.AndContext ctx) {
         AviatorParser.ExpressionContext left = ctx.expression(0);
-        AviatorParser.ExpressionContext right = ctx.expression(0);
+        AviatorParser.ExpressionContext right = ctx.expression(1);
         return new AndOpBooleanExpression((AbstractBooleanExpression)left.accept(this)
                 ,(AbstractBooleanExpression)right.accept(this));
     }
@@ -130,7 +129,7 @@ public class BooleanExpVisitor extends AviatorBaseVisitor {
     @Override
     public Object visitJoin(AviatorParser.JoinContext ctx) {
         AviatorParser.ExpressionContext left = ctx.expression(0);
-        AviatorParser.ExpressionContext right = ctx.expression(0);
+        AviatorParser.ExpressionContext right = ctx.expression(1);
         return new OrOpBooleanExpression((AbstractBooleanExpression)left.accept(this)
                 ,(AbstractBooleanExpression)right.accept(this));
     }
@@ -180,6 +179,9 @@ public class BooleanExpVisitor extends AviatorBaseVisitor {
     @Override
     public Object visitPrimary(AviatorParser.PrimaryContext ctx) {
         // Primary 有几种类型，继续向下推导
+        if(ctx.LEFTBRACKET()!=null){
+            return ctx.expression().accept(this);
+        }
         return super.visitPrimary(ctx);
     }
 

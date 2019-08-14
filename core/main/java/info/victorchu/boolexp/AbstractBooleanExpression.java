@@ -9,12 +9,6 @@ package info.victorchu.boolexp;
  */
 public abstract  class AbstractBooleanExpression {
 
-    /**
-     * 表达式的执行结果
-     * @return boolean
-     */
-    public abstract boolean evaluate();
-
     public abstract boolean equal(AbstractBooleanExpression abstractBooleanExpression);
 
     /**

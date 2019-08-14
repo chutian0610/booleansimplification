@@ -2,9 +2,21 @@ package info.victorchu;
 
 import info.victorchu.boolexp.AbstractBooleanExpression;
 
+import java.util.List;
+
 public class Rule {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
     private String originExp;
-    private AbstractBooleanExpression abstractBooleanExpression;
+    private AbstractBooleanExpression booleanExpression;
+    private List<List<AbstractBooleanExpression>> booleanMatrix;
 
     public String getOriginExp() {
         return originExp;
@@ -14,11 +26,19 @@ public class Rule {
         this.originExp = originExp;
     }
 
-    public AbstractBooleanExpression getAbstractBooleanExpression() {
-        return abstractBooleanExpression;
+    public AbstractBooleanExpression getBooleanExpression() {
+        return booleanExpression;
     }
 
-    public void setAbstractBooleanExpression(AbstractBooleanExpression abstractBooleanExpression) {
-        this.abstractBooleanExpression = abstractBooleanExpression;
+    public void setBooleanExpression(AbstractBooleanExpression booleanExpression) {
+        this.booleanExpression = booleanExpression;
+    }
+
+    public List<List<AbstractBooleanExpression>> getBooleanMatrix() {
+        return booleanMatrix;
+    }
+
+    public void setBooleanMatrix(List<List<AbstractBooleanExpression>> booleanMatrix) {
+        this.booleanMatrix = booleanMatrix;
     }
 }

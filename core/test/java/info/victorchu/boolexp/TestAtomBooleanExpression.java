@@ -25,11 +25,6 @@ public class TestAtomBooleanExpression extends AtomBooleanExpression {
     }
 
     @Override
-    public boolean evaluate() {
-        return result;
-    }
-
-    @Override
     public boolean equal(AbstractBooleanExpression abstractBooleanExpression) {
         if(abstractBooleanExpression instanceof  TestAtomBooleanExpression){
             if(((TestAtomBooleanExpression) abstractBooleanExpression).getIndex().equals(this.index)){

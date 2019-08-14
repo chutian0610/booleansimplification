@@ -30,11 +30,6 @@ public class NotOpBooleanExpression extends OperatorBooleanExpression {
     }
 
     @Override
-    public boolean evaluate() {
-        return !inner.evaluate();
-    }
-
-    @Override
     public boolean equal(AbstractBooleanExpression abstractBooleanExpression) {
         if(abstractBooleanExpression instanceof NotOpBooleanExpression){
             return inner == ((NotOpBooleanExpression) abstractBooleanExpression).inner;
