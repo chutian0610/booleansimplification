@@ -37,9 +37,10 @@ public class AviatorRuleParser {
         return (Rule) parseTree.accept(booleanExpVisitor);
     }
 
+    // this method is just for test
     public static void main(String[] args) throws IOException {
         AviatorRuleParser aviatorRuleParser = new AviatorRuleParser();
-        String path =args[0];
+        String path =args[0]; // rule line-split file
         BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
         String line;
         int count=0;
