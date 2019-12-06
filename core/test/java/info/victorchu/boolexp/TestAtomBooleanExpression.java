@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Description TODO
  */
 public class TestAtomBooleanExpression extends AtomBooleanExpression {
-    private static final AtomicInteger currentIndex = new AtomicInteger(0);
+    private static final AtomicInteger currentIndex = new AtomicInteger(1);
 
     private boolean result;
 
@@ -36,8 +36,7 @@ public class TestAtomBooleanExpression extends AtomBooleanExpression {
 
     @Override
     public String print() {
-        return "AtomBooleanExpression{" +
-                "index=X" + index +
+        return "{" +index +
                 '}';
     }
 }

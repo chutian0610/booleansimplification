@@ -59,6 +59,10 @@ public final class BooleanMatrixSimplificator {
         return stringBuilder.toString();
     }
 
+    /**
+     * travelExpression 方法中识别 原变量和反变量
+     * @param expression
+     */
     public void travelExpression(AbstractBooleanExpression expression){
         if(expression instanceof AtomBooleanExpression){
             addExpression(expression);
