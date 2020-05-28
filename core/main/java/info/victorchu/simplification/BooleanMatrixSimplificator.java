@@ -20,6 +20,11 @@ public final class BooleanMatrixSimplificator {
     public BooleanMatrix booleanMatrix ;
     public List<AbstractBooleanExpression> booleanExpressionList = new ArrayList<>();
 
+    /**
+     * 新增表达式
+     * @param expression
+     * @return
+     */
     public int addExpression(AbstractBooleanExpression expression){
         int index = -1;
         for (int i = 0; i <booleanExpressionList.size() ; i++) {
@@ -37,6 +42,11 @@ public final class BooleanMatrixSimplificator {
 
     }
 
+    /**
+     * 获得表达式索引
+     * @param expression
+     * @return
+     */
     public int getExpressionIndex(AbstractBooleanExpression expression){
         int index = -1;
         for (int i = 0; i <booleanExpressionList.size() ; i++) {
@@ -53,6 +63,11 @@ public final class BooleanMatrixSimplificator {
 
     }
 
+    /**
+     * 打印矩阵
+     *
+     * @return
+     */
     public String printBooleanValues(){
         StringBuilder stringBuilder = new StringBuilder();
         booleanExpressionList.forEach(item -> stringBuilder.append(item.print()+"\n"));
@@ -88,6 +103,11 @@ public final class BooleanMatrixSimplificator {
         }
     }
 
+    /**
+     * 表达式生成矩阵
+     * @param expression
+     * @return
+     */
     public BooleanMatrix getBooleanMatrix(AbstractBooleanExpression expression){
         if(expression instanceof AtomBooleanExpression || expression instanceof NotOpBooleanExpression){
             return buildBoolenMatrixForAtom(expression);
@@ -124,6 +144,7 @@ public final class BooleanMatrixSimplificator {
     }
 
     /**
+     * 从矩阵生成化简表达式
      * or { a1 and a2 and a3 ...}
      * or { b1 and b2 and b3 ...}
      * or
@@ -146,7 +167,7 @@ public final class BooleanMatrixSimplificator {
     }
 
     /**
-     * 析范式
+     * 析范式提取矩阵
      * @param expression 简化not expression 后的语法树
      * @return 最小项list
      */
