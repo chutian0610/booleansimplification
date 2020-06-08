@@ -1,27 +1,31 @@
 package info.victorchu.simplification;
 
-import info.victorchu.boolexp.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import info.victorchu.boolexp.AbstractBooleanExpression;
+import info.victorchu.boolexp.AndOpBooleanExpression;
+import info.victorchu.boolexp.AtomBooleanExpression;
+import info.victorchu.boolexp.NotOpBooleanExpression;
+import info.victorchu.boolexp.OrOpBooleanExpression;
+import info.victorchu.simplification.BooleanMatrixV2.MatrixNode;
 
 /**
  * @Author victor
  * @Email victorchu0610@outlook.com
- * @Data 2019/5/23
- * @Version 1.0
- * @Description 化简器
+ * @Data 2020/6/01
+ * @Version 2.0
+ * @Description 使用BooleanMatrixV2 的化简器
  */
-public final class BooleanMatrixSimplificator {
-    public List<AbstractBooleanExpression> getBooleanExpressionList() {
-        return booleanExpressionList;
-    }
-
-    public BooleanMatrix booleanMatrix ;
+public class BooleanMatrixSimplificatorV2 {
+    // 表达式
     public List<AbstractBooleanExpression> booleanExpressionList = new ArrayList<>();
 
+    // 内部矩阵
+    public BooleanMatrixV2 booleanMatrixV2 ;
+
     /**
-     * 新增表达式
+     * 新增表达式,返回表达式所在index
      * @param expression
      * @return
      */
@@ -75,7 +79,7 @@ public final class BooleanMatrixSimplificator {
     }
 
     /**
-     * travelExpression 方法中识别 原变量和反变量,被识别成无关系的变量。
+     * travelExpression 方法中识别 原变量和反变量,被识别成同一个变量。
      * @param expression
      */
     public void travelExpression(AbstractBooleanExpression expression){
@@ -94,11 +98,7 @@ public final class BooleanMatrixSimplificator {
                 return;
             }
             if(expression instanceof NotOpBooleanExpression){
-                if(((NotOpBooleanExpression) expression).getInner() instanceof AtomBooleanExpression){
-                    addExpression(expression);
-                }else {
-                    travelExpression(((NotOpBooleanExpression) expression).getInner());
-                }
+                travelExpression(((NotOpBooleanExpression) expression).getInner());
             }
         }
     }
@@ -108,37 +108,42 @@ public final class BooleanMatrixSimplificator {
      * @param expression
      * @return
      */
-    public BooleanMatrix getBooleanMatrix(AbstractBooleanExpression expression){
+    public BooleanMatrixV2 getBooleanMatrix(AbstractBooleanExpression expression){
         if(expression instanceof AtomBooleanExpression || expression instanceof NotOpBooleanExpression){
             return buildBoolenMatrixForAtom(expression);
         }else if(expression instanceof AndOpBooleanExpression){
             // 与运算
             return getBooleanMatrix(((AndOpBooleanExpression) expression).getLeft())
-                    .and(getBooleanMatrix(((AndOpBooleanExpression) expression).getRight()))
-                    .simplify();
+                .and(getBooleanMatrix(((AndOpBooleanExpression) expression).getRight()))
+                .simplify();
         }else {
             // 或运算
             return getBooleanMatrix(((OrOpBooleanExpression) expression).getLeft())
-                    .or(getBooleanMatrix(((OrOpBooleanExpression) expression).getRight()))
-                    .simplify();
+                .or(getBooleanMatrix(((OrOpBooleanExpression) expression).getRight()))
+                .simplify();
         }
     }
 
-    public BooleanMatrix buildBoolenMatrixForAtom(AbstractBooleanExpression expression){
+    public BooleanMatrixV2 buildBoolenMatrixForAtom(AbstractBooleanExpression expression){
         if( (expression instanceof AtomBooleanExpression) ||
-                (expression instanceof NotOpBooleanExpression
-                        && ((NotOpBooleanExpression) expression).getInner() instanceof AtomBooleanExpression)
+            (expression instanceof NotOpBooleanExpression
+                && ((NotOpBooleanExpression) expression).getInner() instanceof AtomBooleanExpression)
         ){
             int index = getExpressionIndex(expression);
-            int[][] tmp = new int[1][booleanExpressionList.size()];
+            MatrixNode[][] tmp = new MatrixNode[1][booleanExpressionList.size()];
             for (int j = 0; j <booleanExpressionList.size() ; j++) {
                 if(index == j){
-                    tmp[0][j] = 1;
+                    if(expression instanceof NotOpBooleanExpression){
+                        tmp[0][j] = MatrixNode.NEGATIVE;
+                    }else {
+                        tmp[0][j] = MatrixNode.POSITIVE;
+                    }
+
                 }else {
-                    tmp[0][j] =0;
+                    tmp[0][j] = MatrixNode.EMPTY;
                 }
             }
-            return new BooleanMatrix(1,booleanExpressionList.size(),tmp);
+            return new BooleanMatrixV2(1,booleanExpressionList.size(),tmp);
         }
         throw new IllegalArgumentException("error expression:"+expression.print() +",expression must be atom or not(atom)!");
     }
@@ -154,11 +159,13 @@ public final class BooleanMatrixSimplificator {
      */
     public List<List<AbstractBooleanExpression>> getExpressionsFromBooleanMatrix(){
         List<List<AbstractBooleanExpression>> list =new ArrayList<>();
-        for (int i = 0; i < booleanMatrix.getM(); i++) {
+        for (int i = 0; i < booleanMatrixV2.getM(); i++) {
             List<AbstractBooleanExpression> expressions = new ArrayList<>();
-            for (int j = 0; j <booleanMatrix.getN() ; j++) {
-                if(booleanMatrix.getMatrix()[i][j] ==1){
+            for (int j = 0; j <booleanMatrixV2.getN() ; j++) {
+                if(booleanMatrixV2.getMatrix()[i][j].equals(MatrixNode.POSITIVE)){
                     expressions.add(booleanExpressionList.get(j));
+                }else if(booleanMatrixV2.getMatrix()[i][j].equals(MatrixNode.NEGATIVE)){
+                    expressions.add(new NotOpBooleanExpression(booleanExpressionList.get(j)));
                 }
             }
             list.add(expressions);
@@ -175,8 +182,9 @@ public final class BooleanMatrixSimplificator {
         // 1. 获得expression 使用的所有 atom expression ,not(atom) expression
         travelExpression(expression);
         // 2. 生成 expression 对应的 matrix
-        booleanMatrix = getBooleanMatrix(expression);
+        booleanMatrixV2 = getBooleanMatrix(expression);
         // 3. 根据 boolean matrix 和 atom list 生成最小项list
         return getExpressionsFromBooleanMatrix();
     }
+
 }
