@@ -204,45 +204,155 @@ public class BooleanMatrixV2 {
     }
 
     /**
-     * 吸收化简操作
+     * 去除互斥行
      * @return
      */
-    public BooleanMatrixV2 simplify(){
-        int[] record = new int[m];
+    public BooleanMatrixV2 simplify0(BooleanMatrixV2 matrixV2){
+        int[] record = new int[matrixV2.getM()];
         List<MatrixNode[]> tmpList = new ArrayList<>();
-        for (int i = 0; i <m; i++) {
+        for (int i = 0; i <matrixV2.getM(); i++) {
             record[i] = 0;
         }
-        for (int i = 0; i <m; i++) {
-            MatrixNode[] line = matrix[i];
+        // =============== 化简逻辑  ========================
+        for (int i = 0; i <matrixV2.getM(); i++) {
+            MatrixNode[] line = matrixV2.getMatrix()[i];
             if(isLineToDelete(line)){
                 record[i] = -1;
             }
         }
-        for (int i =0; i<m;i++){
-            for (int j = 0;j<m;j++){
-                if(record[i] ==-1){
-                    // 已被简化剔除掉无需遍历
-                    continue;
-                }
-                if(record[j] != -1 && i!=j && matrixContains(matrix[i],matrix[j]) ) {
-                    // 吸收简化 j
-                    record[j] = -1;
-                }
-            }
-        }
+        // =========================================
         for (int i = 0; i < record.length; i++) {
             if(record[i] != -1){
-                tmpList.add(matrix[i]);
+                tmpList.add(matrixV2.getMatrix()[i]);
             }
         }
         MatrixNode[][] tmp = new MatrixNode[tmpList.size()][];
         for (int i=0;i<tmpList.size();i++) {
             tmp[i] = tmpList.get(i);
         }
-        return new BooleanMatrixV2(tmp.length,n,tmp);
+        return new BooleanMatrixV2(tmp.length,matrixV2.getN(),tmp);
+    }
+
+    /**
+     * 吸收化简
+     * @return
+     */
+    public BooleanMatrixV2 simplify1(BooleanMatrixV2 matrixV2){
+        int[] record = new int[matrixV2.getM()];
+        List<MatrixNode[]> tmpList = new ArrayList<>();
+        for (int i = 0; i <matrixV2.getM(); i++) {
+            record[i] = 0;
+        }
+        // =============== 化简逻辑  ========================
+        for (int i =0; i<matrixV2.getM();i++){
+            for (int j = 0;j<matrixV2.getM();j++){
+                if(record[i] ==-1){
+                    // 已被简化剔除掉无需遍历
+                    continue;
+                }
+                if(record[j] != -1 && i!=j && matrixContains(matrixV2.getMatrix()[i],matrixV2.getMatrix()[j]) ) {
+                    // 吸收简化 j
+                    record[j] = -1;
+                }
+            }
+        }
+        // =========================================
+        for (int i = 0; i < record.length; i++) {
+            if(record[i] != -1){
+                tmpList.add(matrixV2.getMatrix()[i]);
+            }
+        }
+        MatrixNode[][] tmp = new MatrixNode[tmpList.size()][];
+        for (int i=0;i<tmpList.size();i++) {
+            tmp[i] = tmpList.get(i);
+        }
+        return new BooleanMatrixV2(tmp.length,matrixV2.getN(),tmp);
+    }
 
 
+    /**
+     * 合并化简
+     * @return
+     */
+    public BooleanMatrixV2 simplify2(BooleanMatrixV2 matrixV2){
+        List<MatrixNode[]> tmpList = new ArrayList<>();
+        for (int i = 0; i <matrixV2.getM(); i++) {
+            tmpList.add(matrixV2.getMatrix()[i]);
+        }
+        boolean next = true;
+        while (next) {
+            int length = tmpList.size();
+            int i =0; int j=0;
+            int pos = -1;
+
+            loop1:
+            for (i = 0; i < length; i++) {
+                for (j = i + 1; j < length; j++) {
+                    int result = merge(tmpList.get(i), tmpList.get(j));
+                    if (result > -1) {
+                        pos = result;
+                        break loop1;
+                    }
+                }
+            }
+            if(pos>-1){
+                MatrixNode[] tmp = tmpList.get(i);
+                MatrixNode[] tmpi = tmpList.get(i);
+                MatrixNode[] tmpj = tmpList.get(j);
+                tmpList.remove(tmpi);
+                tmpList.remove(tmpj);
+                tmp[pos] = MatrixNode.EMPTY;
+                tmpList.add(tmp);
+            }else {
+                next = false;
+            }
+        }
+        MatrixNode[][] tmp = new MatrixNode[tmpList.size()][];
+        for (int i=0;i<tmpList.size();i++) {
+            tmp[i] = tmpList.get(i);
+        }
+        return new BooleanMatrixV2(tmp.length,matrixV2.getN(),tmp);
+    }
+
+    public int merge(MatrixNode[] a,MatrixNode[] b){
+        if (a.length != b.length){
+            throw new IllegalArgumentException("matrix width must be same!");
+        }
+        int flag =0;
+        int pos = -1;
+        for (int i=0;i<a.length;i++){
+            if(!b[i].equals(a[i])){
+                if(flag>=1){
+                    return -1;
+
+                }
+                if ( ( b[i].equals(MatrixNode.NEGATIVE) && a[i].equals(MatrixNode.POSITIVE) )
+                    || ( b[i].equals(MatrixNode.POSITIVE) && a[i].equals(MatrixNode.NEGATIVE) )){
+                    pos = i;
+                    flag++;
+                }
+            }
+
+        }
+        return pos;
+    }
+
+    /**
+     * 化简操作
+     * @return
+     */
+    public BooleanMatrixV2 simplify(){
+        BooleanMatrixV2 booleanMatrixV2 = this;
+        int length0 =0; int length1= 0;
+        do {
+            length0= booleanMatrixV2.getM();
+            booleanMatrixV2 = simplify0(booleanMatrixV2);
+            booleanMatrixV2 = simplify1(booleanMatrixV2);
+            booleanMatrixV2 = simplify2(booleanMatrixV2);
+            length1= booleanMatrixV2.getM();
+        }while (length1!=length0);
+
+        return booleanMatrixV2;
     }
 
     private static boolean matrixContains(MatrixNode[] a, MatrixNode[] b){
@@ -275,7 +385,7 @@ public class BooleanMatrixV2 {
         for (int i=0;i<m;i++){
             stringBuilder.append("[");// line begin
             for (int j =0;j<n;j++){
-                stringBuilder.append(matrix[i][j]+",");
+                stringBuilder.append(matrix[i][j].getDesc()+",");
             }
             stringBuilder.deleteCharAt(stringBuilder.length()-1);
             stringBuilder.append("]\n");// line end
