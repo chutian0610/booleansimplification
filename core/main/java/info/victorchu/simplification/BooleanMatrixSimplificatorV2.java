@@ -125,15 +125,24 @@ public class BooleanMatrixSimplificatorV2 {
     }
 
     public BooleanMatrixV2 buildBoolenMatrixForAtom(AbstractBooleanExpression expression){
-        if( (expression instanceof AtomBooleanExpression) ||
-            (expression instanceof NotOpBooleanExpression
-                && ((NotOpBooleanExpression) expression).getInner() instanceof AtomBooleanExpression)
-        ){
+        boolean enter = false;
+        boolean not = false;
+        if(expression instanceof AtomBooleanExpression) {
+            enter = true;
+        }else {
+            if(expression instanceof NotOpBooleanExpression
+                    && ((NotOpBooleanExpression) expression).getInner() instanceof AtomBooleanExpression){
+                enter = true;
+                expression = ((NotOpBooleanExpression) expression).getInner();
+                not = true;
+            }
+        }
+        if(enter) {
             int index = getExpressionIndex(expression);
             MatrixNode[][] tmp = new MatrixNode[1][booleanExpressionList.size()];
             for (int j = 0; j <booleanExpressionList.size() ; j++) {
                 if(index == j){
-                    if(expression instanceof NotOpBooleanExpression){
+                    if(not){
                         tmp[0][j] = MatrixNode.NEGATIVE;
                     }else {
                         tmp[0][j] = MatrixNode.POSITIVE;
